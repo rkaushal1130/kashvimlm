@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import AboutUs from './pages/AboutUs';
 import Shop from './pages/Shop';
 import Categories from './pages/Categories';
+import Contact from './pages/Contact';
 import Profile from './pages/Profile';
 
 /**
@@ -23,6 +24,7 @@ function App() {
             <Route path="/about" element={<AboutUs />} />
             <Route path="/shop" element={<Shop />} />
             <Route path="/categories" element={<Categories />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="*" element={<Home />} />
           </Routes>

@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, User } from 'lucide-react';
 import logoImg from '../assets/logo.png';
 
 /**
  * Responsive, premium Navbar for KASHVIMLM.
+ * Features:
+ * - Brand logo on the left
+ * - Centered navigation links (Home, About Us, Shop, Categories, Contact)
+ * - Profile logo button at the extreme right
+ * - Mobile responsive drawer with active states
  */
 function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -50,7 +55,7 @@ function Navbar() {
     { label: 'About Us', path: '/about' },
     { label: 'Shop', path: '/shop' },
     { label: 'Categories', path: '/categories' },
-    { label: 'Profile', path: '/profile' },
+    { label: 'Contact', path: '/contact' },
   ];
 
   return (
@@ -59,17 +64,12 @@ function Navbar() {
         {/* Left: Brand Logo */}
         <div className="navbar-left">
           <Link to="/" className="navbar-logo" aria-label="KASHVIMLM Home">
-            {logoImg ? (
-              <img src={logoImg} alt="KASHVIMLM" className="navbar-logo-img" />
-            ) : (
-              <span className="navbar-logo-text">
-                KASHVIMLM<span className="navbar-logo-accent">.</span>
-              </span>
-            )}
+            <img src={logoImg} alt="KASHVIMLM" className="navbar-logo-img" />
+            <span className="navbar-logo-text">kashvimlm</span>
           </Link>
         </div>
 
-        {/* Center: Main Navigation */}
+        {/* Center: Main Navigation Links */}
         <nav className="navbar-center" aria-label="Main Navigation">
           <ul className="navbar-nav">
             {navLinks.map((link) => (
@@ -81,20 +81,30 @@ function Navbar() {
                     isActive ? 'nav-link active' : 'nav-link'
                   }
                 >
-                  {({ isActive }) => (
-                    <>
-                      <span>{link.label}</span>
-                      {isActive && <span className="nav-active-indicator" aria-hidden="true" />}
-                    </>
-                  )}
+                  {link.label}
                 </NavLink>
               </li>
             ))}
           </ul>
         </nav>
 
-        {/* Right: Minimal Area / Mobile Toggle */}
+        {/* Right: Extreme Right Profile Logo & Mobile Toggle */}
         <div className="navbar-right">
+          <NavLink
+            to="/profile"
+            className={({ isActive }) =>
+              isActive ? 'navbar-profile-btn active' : 'navbar-profile-btn'
+            }
+            aria-label="User Profile"
+            title="Kashvi Sharma (Logged In)"
+          >
+            <div className="navbar-profile-avatar-wrap">
+              <User size={18} className="navbar-profile-icon" />
+              <span className="navbar-profile-online-badge" title="Logged In" />
+            </div>
+            <span className="navbar-profile-text">Profile</span>
+          </NavLink>
+
           <button
             type="button"
             className="mobile-toggle-btn"
@@ -121,6 +131,24 @@ function Navbar() {
             aria-modal="true"
             aria-label="Mobile Navigation"
           >
+            {/* Mobile Profile Card */}
+            <NavLink
+              to="/profile"
+              className={({ isActive }) =>
+                isActive ? 'mobile-profile-card active' : 'mobile-profile-card'
+              }
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              <div className="mobile-profile-avatar">
+                <User size={20} />
+                <span className="mobile-profile-online-badge" />
+              </div>
+              <div className="mobile-profile-info">
+                <span className="mobile-profile-name">Kashvi Sharma</span>
+                <span className="mobile-profile-status">● Logged In</span>
+              </div>
+            </NavLink>
+
             <ul className="mobile-nav-list">
               {navLinks.map((link) => (
                 <li key={link.path}>
@@ -132,12 +160,7 @@ function Navbar() {
                     }
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    {({ isActive }) => (
-                      <>
-                        <span>{link.label}</span>
-                        {isActive && <span className="mobile-active-dot" aria-hidden="true" />}
-                      </>
-                    )}
+                    <span>{link.label}</span>
                   </NavLink>
                 </li>
               ))}
