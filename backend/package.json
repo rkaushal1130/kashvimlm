@@ -69,6 +69,12 @@
     "vitest": "^5.0.1"
   },
   "allowScripts": {
+    "@embedded-postgres/windows-x64": true,
+    "@prisma/client": true,
+    "@prisma/engines": true,
+    "argon2": true,
+    "esbuild": true,
+    "prisma": true,
     "@embedded-postgres/windows-x64@18.4.0-beta.17": true,
     "@prisma/client@6.19.3": true,
     "@prisma/engines@6.19.3": true,

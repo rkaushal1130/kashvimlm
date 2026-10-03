@@ -44,5 +44,10 @@
     "@vitejs/plugin-react": "^6.1.0",
     "oxlint": "^1.79.0",
     "vite": "^8.2.2"
+  },
+  "allowScripts": {
+    "esbuild": true,
+    "@prisma/client": true,
+    "prisma": true
   }
 }
