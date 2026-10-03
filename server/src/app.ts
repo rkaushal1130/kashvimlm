@@ -179,3 +179,12 @@ app.use((_req: Request, res: Response) => {
 
 // 10. Global Centralized Error Handler Middleware
 app.use(errorHandler);
+
+export default app;
+
+// CommonJS compatibility export for Vercel Serverless Functions
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = app;
+  (module.exports as any).default = app;
+  (module.exports as any).app = app;
+}
